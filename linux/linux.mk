@@ -255,6 +255,9 @@ endef
 endif
 
 define LINUX_KCONFIG_FIXUP_CMDS
+	# Add fadump awareness in Petitboot kernel
+	$(call KCONFIG_ENABLE_OPT,CONFIG_PRESERVE_FA_DUMP,$(@D)/.config)
+
 	$(if $(LINUX_NEEDS_MODULES),
 		$(call KCONFIG_ENABLE_OPT,CONFIG_MODULES,$(@D)/.config))
 	$(call KCONFIG_ENABLE_OPT,$(strip $(LINUX_COMPRESSION_OPT_y)),$(@D)/.config)
